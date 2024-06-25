@@ -25,6 +25,7 @@
 
     <div class="content">
         {% for todo in todo_list %}
+    <div class="content">
         <p>{{todo.id}} : {{todo.task}} : {{ 'Complete' if todo.complete else 'Incomplete' }} : {{todo.date.strftime('%Y-%m-%d') }}</p> <!-- I got the complete from chat gpt-->
 
         {% if not todo.complete %}
