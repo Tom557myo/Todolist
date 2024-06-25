@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Flask</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <nav>
+       
+    </nav>
+    <div class="taskreturn">
+        <h1>My Todo List!!</h1>
+    </div>
+    <form action="/add" method="post">
+        <div class="task">
+            <label>Todo task!!!</label></br></br>
+            <input type="text" name="task" placeholder="Enter a Task">
+            <button type="submit" class="btn btn-add">Add a Task</button>
+        </div>
+    </form>
+
+    <div class="content">
+        {% for todo in todo_list %}
+        <p>{{todo.id}} : {{todo.task}} : {{ 'Complete' if todo.complete else 'Incomplete' }} : {{todo.date.strftime('%Y-%m-%d') }}</p> <!-- I got the complete from chat gpt-->
+
+        {% if not todo.complete %}
+        <p class="button">
+            Task incomplete. 
+            <a href="/toggle_complete/{{ todo.id }}" class="btn btn-update">Mark as complete?</a>
+        </p>
+        {% else %}
+        <p class="button">
+            Task complete. 
+            <a href="/toggle_complete/{{ todo.id }}" class="btn btn-update">Mark as incomplete?</a>
+            <a href="/delete/{{ todo.id }}" class="btn btn-delete">Delete Task?</a>
+        </p>
+        {% endif %}
+        <p class="button">
+            Would you like to 
+            <a href="{{ url_for('edit', todo_id=todo.id) }}" class="btn btn-edit">Edit?</a>
+        </p>
+    </div>
+    {% endfor %}
+</body>
+
+</html>
